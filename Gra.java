@@ -14,7 +14,7 @@ import javax.swing.*;
  * 
  * 1 - mur nietykalny
  * 2 - puste pole
- * 3 - œciana do zniszczenia
+ * 3 - Å›ciana do zniszczenia
  * 4 - gawron
  * 5 - bomba
  * 6 - wybuch
@@ -35,7 +35,7 @@ public class Gra extends JFrame implements KeyListener
 	Dzwiek kra = new Dzwiek();
 	Dzwiek ptaszysko = new Dzwiek();
 	
-	int liczbaPrzeciwnikow = 10;		 //!!!		0 - nie ma przeciwników
+	int liczbaPrzeciwnikow = 10;		 //!!!		0 - nie ma przeciwnikÃ³w
 
 	int XGawron = 1;
 	int YGawron = 1;
@@ -84,7 +84,7 @@ public class Gra extends JFrame implements KeyListener
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(1950,1100);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		szerokosc = getWidth()/21; 		// szerokosc i wysokosc pola na podsatwie wymiarów ekranu (Jframe)
+		szerokosc = getWidth()/21; 		// szerokosc i wysokosc pola na podsatwie wymiarÃ³w ekranu (Jframe)
 		wysokosc = getHeight()/17;
 		
 		setUndecorated(true);
@@ -177,8 +177,17 @@ public class Gra extends JFrame implements KeyListener
 				e.printStackTrace();
 			}
 			
+			if (R.odswiez) {
 			R.koniec();
-			JOptionPane.showMessageDialog(null, "Czas siê skoñczy³", "Koniec gry", JOptionPane.WARNING_MESSAGE);
+			
+			if (jezyk == "pl")
+				JOptionPane.showMessageDialog(null, "Czas siÄ™ skoÅ„czyÅ‚", "Koniec gry", JOptionPane.WARNING_MESSAGE);
+			if (jezyk == "en")
+				JOptionPane.showMessageDialog(null, "Time is over", "Game over", JOptionPane.WARNING_MESSAGE);
+			if (jezyk == "de")
+				JOptionPane.showMessageDialog(null, "Die Zeit ist vorbei", "Ende des Spiels", JOptionPane.WARNING_MESSAGE);
+			}
+			
 			// !!!!!!!!!!!!!!!!!!!!
 		}
 	}
@@ -232,7 +241,7 @@ public class Gra extends JFrame implements KeyListener
 	}
 	
 	
-	class refresh extends Thread		// repaintuje ca³y czas
+	class refresh extends Thread		// repaintuje caÅ‚y czas
 	{
 		boolean odswiez = true;		
 		
@@ -242,7 +251,7 @@ public class Gra extends JFrame implements KeyListener
 			{
 				/*
 				try {
-					sleep(350);								// mo¿e wp³ywaæ na p³ynnoœæ
+					sleep(350);								// moÅ¼e wpÅ‚ywaÄ‡ na pÅ‚ynnoÅ›Ä‡
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -254,10 +263,37 @@ public class Gra extends JFrame implements KeyListener
 				if (liczbaPrzeciwnikow == 0)
 					if (g == false || k == false)
 					{
-						if (g)
-							JOptionPane.showMessageDialog(null, "Gawron zwyciê¿y³!", "GRATULACJE", JOptionPane.WARNING_MESSAGE);
-						if (k)
-							JOptionPane.showMessageDialog(null, "Kot zwyciê¿y³!", "GRATULACJE", JOptionPane.WARNING_MESSAGE);
+						if (g) {
+						switch (jezyk)
+						{
+						case "pl":
+							JOptionPane.showMessageDialog(null, "Gawron zwyciÄ™Å¼yÅ‚!", "GRATULACJE", JOptionPane.WARNING_MESSAGE);	
+							break;
+							
+						case "en":
+							JOptionPane.showMessageDialog(null, "The Rook won!", "CONGRATULATIONS", JOptionPane.WARNING_MESSAGE);	
+							break;
+							
+						case "de":
+							JOptionPane.showMessageDialog(null, "SaatkrÃ¤he hat gewonnen!", "GLÃœCKWÃœNSCHE", JOptionPane.WARNING_MESSAGE);	
+							break;
+						}}
+						
+						if (k) {
+							switch (jezyk)
+							{
+							case "pl":
+								JOptionPane.showMessageDialog(null, "Kot zwyciÄ™Å¼yÅ‚!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);	
+								break;
+								
+							case "en":
+								JOptionPane.showMessageDialog(null, "The Cat won!", "GAME OVER", JOptionPane.WARNING_MESSAGE);	
+								break;
+								
+							case "de":
+								JOptionPane.showMessageDialog(null, "Die Katze hat gewonnen!", "GLÃœCKWÃœNSCHE", JOptionPane.WARNING_MESSAGE);	
+								break;
+							}}
 						
 						odswiez = false;
 					}
@@ -273,7 +309,7 @@ public class Gra extends JFrame implements KeyListener
 
 	
 	
-	// w¹tek z przeciwnikiem
+	// wÄ…tek z przeciwnikiem
 	class addEnemies extends Thread
 	{
 		boolean live = true;
@@ -356,9 +392,9 @@ public class Gra extends JFrame implements KeyListener
 							{
 							case "pl":
 								if (LiczGraczy == 1)
-									JOptionPane.showMessageDialog(null, "Gawron zgin¹³!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Gawron zginÄ…Å‚!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);
 								else
-									JOptionPane.showMessageDialog(null, "Gawron i kot zginêli!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Gawron i kot zginÄ™li!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);
 								break;
 								
 							case "en":
@@ -370,9 +406,9 @@ public class Gra extends JFrame implements KeyListener
 								
 							case "de":
 								if (LiczGraczy == 1)
-									JOptionPane.showMessageDialog(null, "Saatkrähe ist gestorben!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);
+									JOptionPane.showMessageDialog(null, "SaatkrÃ¤he ist gestorben!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);
 								else
-									JOptionPane.showMessageDialog(null, "Saatkrähe und Katze wurden getötet!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);
+									JOptionPane.showMessageDialog(null, "SaatkrÃ¤he und Katze wurden getÃ¶tet!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);
 								break;
 							}
 							
@@ -382,7 +418,7 @@ public class Gra extends JFrame implements KeyListener
 							  
 
 						poprzedni = 2;
-						XGawron = 0; YGawron = 0;  // ¿eby nie przeszkadza³
+						XGawron = 0; YGawron = 0;  // Å¼eby nie przeszkadzaÅ‚
 						
 						
 					}
@@ -400,7 +436,7 @@ public class Gra extends JFrame implements KeyListener
 							switch (jezyk)
 							{
 							case "pl":
-								JOptionPane.showMessageDialog(null, "Gawron i kot zginêli!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);	
+								JOptionPane.showMessageDialog(null, "Gawron i kot zginÄ™li!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);	
 								break;
 								
 							case "en":
@@ -408,7 +444,7 @@ public class Gra extends JFrame implements KeyListener
 								break;
 								
 							case "de":
-								JOptionPane.showMessageDialog(null, "Saatkrähe und Katze wurden getötet!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);	
+								JOptionPane.showMessageDialog(null, "SaatkrÃ¤he und Katze wurden getÃ¶tet!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);	
 								break;
 							}
 							
@@ -418,15 +454,15 @@ public class Gra extends JFrame implements KeyListener
 							 
 						
 						poprzedni = 2;
-						XKot = 20; YKot = 16;  // ¿eby nie przeszkadza³
+						XKot = 20; YKot = 16;  // Å¼eby nie przeszkadzaÅ‚
 						
 						
 					}
 				
 					
-				for (int i = 0; i < 5; i++) {  // zagêszczenie sprawdzania ognia
+				for (int i = 0; i < 5; i++) {  // zagÄ™szczenie sprawdzania ognia
 					
-				// jeœli ogieñ
+				// jeÅ›li ogieÅ„
 					
 					 if (typ[XEnemy][YEnemy] == 6)
 					 {
@@ -439,7 +475,7 @@ public class Gra extends JFrame implements KeyListener
 								
 				// spanko
 				try {
-					sleep(100);	// czas miêdzy skokami / 5
+					sleep(100);	// czas miÄ™dzy skokami / 5
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -454,7 +490,7 @@ public class Gra extends JFrame implements KeyListener
 	
 	
 	
-	// Z TYMI LINIJKAMI NIE MA ERRORÓW JAK SIÊ PRZYTRZYMUJE KLAWISZ
+	// Z TYMI LINIJKAMI NIE MA ERRORÃ“W JAK SIÄ˜ PRZYTRZYMUJE KLAWISZ
 	@Override
 	public void keyPressed(KeyEvent e) {}
 	@Override
@@ -526,7 +562,7 @@ public class Gra extends JFrame implements KeyListener
 		
 		if (LiczGraczy == 2 && k) {
 		
-		/////////////////////////// DRUGI  (mo¿na zamkn¹æ w jednym ifie) // to samo co wy¿ej
+		/////////////////////////// DRUGI  (moÅ¼na zamknÄ…Ä‡ w jednym ifie) // to samo co wyÅ¼ej
 		
 		// sterowanie      IJKL P
 		
@@ -588,7 +624,7 @@ public class Gra extends JFrame implements KeyListener
 		}
 		
 		
-		//////////////////////////////////// DRUGI (wy¿ej)
+		//////////////////////////////////// DRUGI (wyÅ¼ej)
 		
 		}
 	
@@ -605,7 +641,7 @@ public class Gra extends JFrame implements KeyListener
 			  @Override
 			  public void run() 
 			  {
-				  // jak siê który wpierniczy pod wybuch
+				  // jak siÄ™ ktÃ³ry wpierniczy pod wybuch
 				  
 				  if (typ[x+1][y] == 4 || typ[x-1][y] == 4 ||
 						  typ[x][y+1] == 4 || typ[x][y-1] == 4)
@@ -621,9 +657,9 @@ public class Gra extends JFrame implements KeyListener
 							{
 							case "pl":
 								if (LiczGraczy == 1)
-									JOptionPane.showMessageDialog(null, "Gawron zgin¹³!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Gawron zginÄ…Å‚!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);
 								else
-									JOptionPane.showMessageDialog(null, "Gawron i kot zginêli!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Gawron i kot zginÄ™li!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);
 								break;
 								
 							case "en":
@@ -635,9 +671,9 @@ public class Gra extends JFrame implements KeyListener
 								
 							case "de":
 								if (LiczGraczy == 1)
-									JOptionPane.showMessageDialog(null, "Saatkrähe ist gestorben!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);
+									JOptionPane.showMessageDialog(null, "SaatkrÃ¤he ist gestorben!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);
 								else
-									JOptionPane.showMessageDialog(null, "Saatkrähe und Katze wurden getötet!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);
+									JOptionPane.showMessageDialog(null, "SaatkrÃ¤he und Katze wurden getÃ¶tet!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);
 								break;
 							}
 
@@ -659,9 +695,9 @@ public class Gra extends JFrame implements KeyListener
 							{
 							case "pl":
 								if (LiczGraczy == 1)
-									JOptionPane.showMessageDialog(null, "Gawron zgin¹³!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Gawron zginÄ…Å‚!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);
 								else
-									JOptionPane.showMessageDialog(null, "Gawron i kot zginêli!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Gawron i kot zginÄ™li!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);
 								break;
 								
 							case "en":
@@ -673,9 +709,9 @@ public class Gra extends JFrame implements KeyListener
 								
 							case "de":
 								if (LiczGraczy == 1)
-									JOptionPane.showMessageDialog(null, "Saatkrähe ist gestorben!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);
+									JOptionPane.showMessageDialog(null, "SaatkrÃ¤he ist gestorben!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);
 								else
-									JOptionPane.showMessageDialog(null, "Saatkrähe und Katze wurden getötet!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);
+									JOptionPane.showMessageDialog(null, "SaatkrÃ¤he und Katze wurden getÃ¶tet!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);
 								break;
 							}
 							
@@ -699,7 +735,7 @@ public class Gra extends JFrame implements KeyListener
 							switch (jezyk)
 							{
 							case "pl":
-								JOptionPane.showMessageDialog(null, "Gawron i kot zginêli!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);	
+								JOptionPane.showMessageDialog(null, "Gawron i kot zginÄ™li!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);	
 								break;
 								
 							case "en":
@@ -707,7 +743,7 @@ public class Gra extends JFrame implements KeyListener
 								break;
 								
 							case "de":
-								JOptionPane.showMessageDialog(null, "Saatkrähe und Katze wurden getötet!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);	
+								JOptionPane.showMessageDialog(null, "SaatkrÃ¤he und Katze wurden getÃ¶tet!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);	
 								break;
 							}
 							
@@ -727,7 +763,7 @@ public class Gra extends JFrame implements KeyListener
 							switch (jezyk)
 							{
 							case "pl":
-								JOptionPane.showMessageDialog(null, "Gawron i kot zginêli!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);	
+								JOptionPane.showMessageDialog(null, "Gawron i kot zginÄ™li!", "KONIEC GRY", JOptionPane.WARNING_MESSAGE);	
 								break;
 								
 							case "en":
@@ -735,7 +771,7 @@ public class Gra extends JFrame implements KeyListener
 								break;
 								
 							case "de":
-								JOptionPane.showMessageDialog(null, "Saatkrähe und Katze wurden getötet!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);	
+								JOptionPane.showMessageDialog(null, "SaatkrÃ¤he und Katze wurden getÃ¶tet!", "SPIEL IST AUS", JOptionPane.WARNING_MESSAGE);	
 								break;
 							}
 							
@@ -747,10 +783,10 @@ public class Gra extends JFrame implements KeyListener
 				  
 				  
 				  
-				  // w³aœciwy wybuch
+				  // wÅ‚aÅ›ciwy wybuch
 				  
 
-				  bum.play(inFileName);	// dzwiêk
+				  bum.play(inFileName);	// dzwiÄ™k
 				  
 				  typ[x][y] = 6;
 				  if (typ[x+1][y] != 1)
